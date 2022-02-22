@@ -1,6 +1,6 @@
 # Create your first NFT collection.
 
-![](https://i.imgur.com/4V8Lx8F.png)
+![](https://i.imgur.com/zX0LrXn.png)
 
 このコースを始めるには、下記のステップを実行してください。
 
