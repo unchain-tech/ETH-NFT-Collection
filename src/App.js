@@ -41,9 +41,34 @@ const App = () => {
       console.log("No authorized account found")
     }
   }
+
+  /*
+  * connectWallet メソッドを実装します。
+  */
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+      /*
+      * ウォレットアドレスに対してアクセスをリクエストしています。
+      */
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+      console.log("Connected", accounts[0]);
+      /*
+      * ウォレットアドレスを currentAccount に紐付けます。
+      */
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // renderNotConnectedContainer メソッドを定義します。
   const renderNotConnectedContainer = () => (
-    <button className="cta-button connect-wallet-button">
+    <button onClick={connectWallet} className="cta-button connect-wallet-button">
       Connect to Wallet
     </button>
   );
@@ -61,8 +86,16 @@ const App = () => {
           <p className="sub-text">
             あなただけの特別な NFT を Mint しよう💫
           </p>
-          {/* メソッドを追加します */}
-          {renderNotConnectedContainer()}
+          {/*条件付きレンダリングを追加しました
+          // すでに接続されている場合は、
+          // Connect to Walletを表示しないようにします。*/}
+          {currentAccount === "" ? (
+            renderNotConnectedContainer()
+          ) : (
+            <button onClick={null} className="cta-button connect-wallet-button">
+              Mint NFT
+            </button>
+          )}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
