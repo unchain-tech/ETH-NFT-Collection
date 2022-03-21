@@ -1,5 +1,5 @@
-// App.js
-import React, { useEffect } from "react";
+// useEffect と useState 関数を React.js からインポートしています。
+import React, { useEffect, useState } from "react";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 // Constantsを宣言する: constとは値書き換えを禁止した変数を宣言する方法です。
@@ -8,16 +8,37 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 const App = () => {
-  const checkIfWalletIsConnected = () => {
-    /*
-    * ユーザーがMetaMaskを持っているか確認します。
-    */
+  /*
+  * ユーザーのウォレットアドレスを格納するために使用する状態変数を定義します。
+  */
+  const [currentAccount, setCurrentAccount] = useState("");
+  /*この段階でcurrentAccountの中身は空*/
+  console.log("currentAccount: ", currentAccount);
+  /*
+  * ユーザーが認証可能なウォレットアドレスを持っているか確認します。
+  */
+  const checkIfWalletIsConnected = async () => {
     const { ethereum } = window;
     if (!ethereum) {
-      console.log("Make sure you have MetaMask!");
-      return;
+        console.log("Make sure you have MetaMask!");
+        return;
     } else {
-      console.log("We have the ethereum object", ethereum);
+        console.log("We have the ethereum object", ethereum);
+    }
+    /*
+		// ユーザーが認証可能なウォレットアドレスを持っている場合は、
+    // ユーザーに対してウォレットへのアクセス許可を求める。
+    // 許可されれば、ユーザーの最初のウォレットアドレスを
+    // accounts に格納する。
+    */
+    const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      console.log("Found an authorized account:", account);
+      setCurrentAccount(account);
+    } else {
+      console.log("No authorized account found")
     }
   }
   // renderNotConnectedContainer メソッドを定義します。
