@@ -89,6 +89,10 @@
   font-weight: bold;
 }
 
+.communicate-text{
+  color: white;
+}
+
 /* KeyFrames */
 @-webkit-keyframes gradient-animation {
   0% {
