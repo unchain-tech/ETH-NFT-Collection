@@ -9,8 +9,10 @@ const TWITTER_HANDLE = 'kitashige_web3';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
+const MINT_PRICE = "0.001";
 
-const CONTRACT_ADDRESS = "0xf1ef7780590252ad68790CC1A1dC3C832461F399";
+//const CONTRACT_ADDRESS = "0xf1ef7780590252ad68790CC1A1dC3C832461F399";
+const CONTRACT_ADDRESS = "0x739c5Ff5A70AE5aB44e4941f3FA97Ca659D83581";
 
 const App = () => {
   /*
@@ -122,7 +124,9 @@ const App = () => {
           signer
         );
         console.log("Going to pop wallet now to pay gas...");
-        let nftTxn = await connectedContract.makeAnEpicNFT();
+        let nftTxn = await connectedContract.makeAnEpicNFT({
+          value: ethers.utils.parseEther(MINT_PRICE),
+        });
         console.log("Mining...please wait.");
         await nftTxn.wait();
 
