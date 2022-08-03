@@ -5,12 +5,14 @@ import {
     CONTRACT_ADDRESS,
     TWITTER_HANDLE,
     TWITTER_LINK,
-    TOTAL_MINT_COUNT,
+    MAX_SUPPLY,
     MINT_PRICE,
 } from "../constants";
 
 
 export const useApp = () => {
+    const [lastTokenId, setLastTokenId] = useState(0);
+    const [myLatestTokenId, setMyLatestTokenId] = useState();
     /*
      * ユーザーのウォレットアドレスを格納するために使用する状態変数を定義します。
      */
@@ -137,21 +139,43 @@ export const useApp = () => {
         }
     };
 
-    // renderNotConnectedContainer メソッドを定義します。
-    const renderNotConnectedContainer = () => (
-        <button
-            onClick={connectWallet}
-            className="cta-button connect-wallet-button">
-            Connect to Wallet
-        </button>
-    );
+    const handleGetLastTokenId = async (connectedContract) => {
+        let tokenId = await connectedContract.getLastTokenId();
+        if (!tokenId) return;
+        setLastTokenId(tokenId.toNumber() - 1);
+    }
 
     useEffect(() => {
         checkIfWalletIsConnected();
     }, []);
 
+    useEffect(() => {
+        const { ethereum } = window;
+        if (!ethereum || !currentAccount) return;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        // NFT が発行されます。
+        const connectedContract = new ethers.Contract(
+            CONTRACT_ADDRESS,
+            myEpicNft.abi,
+            signer
+        );
+        if (!connectedContract) return;
+        //接続した時点でのmint数取得
+        handleGetLastTokenId(connectedContract);
+
+        //mint 後に emit された NewEpicNFTMinted から値を受け取る
+        const handleEmitEvent = (_from, tokenId) => {
+            setMyLatestTokenId(tokenId.toNumber());
+        }
+        connectedContract.on("NewEpicNFTMinted", handleEmitEvent);
+        return () => connectedContract.off("NewEpicNFTMinted", handleEmitEvent);
+
+
+    }, [currentAccount]);
+
     return {
-        renderNotConnectedContainer,
+        lastTokenId,
         currentAccount,
         connectWallet,
         askContractToMintNft,

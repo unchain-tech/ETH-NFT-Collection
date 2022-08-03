@@ -4,11 +4,21 @@ import { useApp } from "./hooks/useApp";
 import {
   TWITTER_HANDLE,
   TWITTER_LINK,
+  MAX_SUPPLY,
 } from "./constants";
 
 const App = () => {
+  // renderNotConnectedContainer メソッドを定義します。
+  const renderNotConnectedContainer = () => (
+    <button
+      onClick={connectWallet}
+      className="cta-button connect-wallet-button">
+      Connect to Wallet
+    </button>
+  );
+
   const {
-    renderNotConnectedContainer,
+    lastTokenId,
     currentAccount,
     connectWallet,
     askContractToMintNft,
@@ -31,8 +41,16 @@ const App = () => {
             <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
               Mint NFT
             </button>
-          )}        </div>
+          )}
+        </div>
         <div className="footer-container">
+          <div className="progress-container">
+            <p className="sub-text">{`${lastTokenId === 0 ? "x" : lastTokenId
+              }/${MAX_SUPPLY}`}</p>
+            <div className="progress" style={{ width: `${lastTokenId}%` }}>
+              🍜
+            </div>
+          </div>
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"
