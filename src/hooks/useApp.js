@@ -3,16 +3,16 @@ import { ethers } from "ethers";
 import myEpicNft from "../utils/MyEpicNFT.json";
 import {
     CONTRACT_ADDRESS,
-    TWITTER_HANDLE,
-    TWITTER_LINK,
-    MAX_SUPPLY,
     MINT_PRICE,
+    RINKEBY_CHAIN_ID,
 } from "../constants";
 
 
 export const useApp = () => {
     const [lastTokenId, setLastTokenId] = useState(0);
     const [myLatestTokenId, setMyLatestTokenId] = useState();
+    const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState(false);
+    const [currentChainId, setCurrentChainId] = useState("");
     /*
      * ユーザーのウォレットアドレスを格納するために使用する状態変数を定義します。
      */
@@ -31,6 +31,10 @@ export const useApp = () => {
         } else {
             console.log("We have the ethereum object", ethereum);
         }
+        //接続されているネットワークを確認する。(Rinkbyかどうか)
+        let chainId = await ethereum.request({ method: "eth_chainId" });
+        const isRinkByChainId = chainId === RINKEBY_CHAIN_ID;
+        setRinkebyTestNetwork(isRinkByChainId);
         /*
         // ユーザーが認証可能なウォレットアドレスを持っている場合は、
         // ユーザーに対してウォレットへのアクセス許可を求める。
@@ -47,8 +51,8 @@ export const useApp = () => {
             setupEventListener();
         } else {
             console.log("No authorized account found");
+            return;
         }
-
     };
 
     /*
@@ -146,7 +150,21 @@ export const useApp = () => {
     }
 
     useEffect(() => {
+        if (!currentChainId) return;
+        const isRinkByChainId = currentChainId === RINKEBY_CHAIN_ID;
+        setRinkebyTestNetwork(isRinkByChainId);
+    }, [currentChainId]);
+
+    useEffect(() => {
         checkIfWalletIsConnected();
+        const { ethereum } = window;
+        if (!ethereum) return;
+        const setChainId = (chainId) => {
+            setCurrentChainId(chainId);
+        };
+        ethereum.on("chainChanged", setChainId);
+        return () => ethereum.off("chainChanged", setChainId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -160,7 +178,7 @@ export const useApp = () => {
             myEpicNft.abi,
             signer
         );
-        if (!connectedContract) return;
+        if (!connectedContract || !isRinkebyTestNetwork) return;
         //接続した時点でのmint数取得
         handleGetLastTokenId(connectedContract);
 
@@ -177,6 +195,7 @@ export const useApp = () => {
     return {
         lastTokenId,
         currentAccount,
+        isRinkebyTestNetwork,
         connectWallet,
         askContractToMintNft,
     };

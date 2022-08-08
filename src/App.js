@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 import { useApp } from "./hooks/useApp";
@@ -8,6 +9,15 @@ import {
 } from "./constants";
 
 const App = () => {
+
+  const {
+    lastTokenId,
+    currentAccount,
+    isRinkebyTestNetwork,
+    connectWallet,
+    askContractToMintNft,
+  } = useApp();
+
   // renderNotConnectedContainer メソッドを定義します。
   const renderNotConnectedContainer = () => (
     <button
@@ -17,12 +27,9 @@ const App = () => {
     </button>
   );
 
-  const {
-    lastTokenId,
-    currentAccount,
-    connectWallet,
-    askContractToMintNft,
-  } = useApp();
+  const showMintCondition = useMemo(() => {
+    return currentAccount !== "" && isRinkebyTestNetwork;
+  }, [currentAccount, isRinkebyTestNetwork]);
 
   return (
     <div className="App">
@@ -35,9 +42,15 @@ const App = () => {
           {/*条件付きレンダリングを追加しました
           // すでに接続されている場合は、
           // Connect to Walletを表示しないようにします。*/}
-          {currentAccount === "" ? (
+          {!!(currentAccount === "" && isRinkebyTestNetwork) && (
             renderNotConnectedContainer()
-          ) : (
+          )}
+          {!isRinkebyTestNetwork && (
+            <p className="sub-text">
+              Rinkeby Test Network に切り替えてください
+            </p>
+          )}
+          {!!showMintCondition && (
             <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
               Mint NFT
             </button>
