@@ -13,6 +13,8 @@ export const useApp = () => {
     const [myLatestTokenId, setMyLatestTokenId] = useState();
     const [isRinkebyTestNetwork, setRinkebyTestNetwork] = useState(false);
     const [currentChainId, setCurrentChainId] = useState("");
+    const [inProgress, setInProgress] = useState(false);
+
     /*
      * ユーザーのウォレットアドレスを格納するために使用する状態変数を定義します。
      */
@@ -130,7 +132,9 @@ export const useApp = () => {
                     value: ethers.utils.parseEther(MINT_PRICE),
                 });
                 console.log("Mining...please wait.");
+                setInProgress(true);
                 await nftTxn.wait();
+                setInProgress(false);
 
                 console.log(
                     `Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
@@ -196,6 +200,7 @@ export const useApp = () => {
         lastTokenId,
         currentAccount,
         isRinkebyTestNetwork,
+        inProgress,
         connectWallet,
         askContractToMintNft,
     };

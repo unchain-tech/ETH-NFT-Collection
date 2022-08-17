@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
+import { loadingGIf } from "./assets";
 import { useApp } from "./hooks/useApp";
 import {
   TWITTER_HANDLE,
@@ -14,6 +15,7 @@ const App = () => {
     lastTokenId,
     currentAccount,
     isRinkebyTestNetwork,
+    inProgress,
     connectWallet,
     askContractToMintNft,
   } = useApp();
@@ -28,8 +30,8 @@ const App = () => {
   );
 
   const showMintCondition = useMemo(() => {
-    return currentAccount !== "" && isRinkebyTestNetwork;
-  }, [currentAccount, isRinkebyTestNetwork]);
+    return currentAccount !== "" && isRinkebyTestNetwork && !inProgress;
+  }, [currentAccount, isRinkebyTestNetwork, inProgress]);
 
   return (
     <div className="App">
@@ -54,6 +56,18 @@ const App = () => {
             <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
               Mint NFT
             </button>
+          )}
+          {inProgress && (
+            <>
+              <div className="loading-wrapper">
+                <img
+                  className="loading-img"
+                  src={loadingGIf}
+                  alt=""
+                  decoding="async"
+                />
+              </div>
+            </>
           )}
         </div>
         <div className="footer-container">
