@@ -49,8 +49,6 @@ export const useApp = () => {
             const account = accounts[0];
             console.log("Found an authorized account:", account);
             setCurrentAccount(account);
-
-            setupEventListener();
         } else {
             console.log("No authorized account found");
             return;
@@ -78,39 +76,6 @@ export const useApp = () => {
              * ウォレットアドレスを currentAccount に紐付けます。
              */
             setCurrentAccount(accounts[0]);
-
-            setupEventListener();
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    // setupEventListener 関数を定義します。
-    // MyEpicNFT.sol の中で event が　emit された時に、
-    // 情報を受け取ります。
-    const setupEventListener = async () => {
-        try {
-            const { ethereum } = window;
-            if (ethereum) {
-                const provider = new ethers.providers.Web3Provider(ethereum);
-                const signer = provider.getSigner();
-                // NFT が発行されます。
-                const connectedContract = new ethers.Contract(
-                    CONTRACT_ADDRESS,
-                    myEpicNft.abi,
-                    signer
-                );
-                // Event が　emit される際に、コントラクトから送信される情報を受け取っています。
-                connectedContract.on("NewEpicNFTMinted", (from, tokenId) => {
-                    console.log(from, tokenId.toNumber());
-                    alert(
-                        `あなたのウォレットに NFT を送信しました。OpenSea に表示されるまで最大で10分かかることがあります。NFT へのリンクはこちらです: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`
-                    );
-                });
-                console.log("Setup event listener!");
-            } else {
-                console.log("Ethereum object doesn't exist!");
-            }
         } catch (error) {
             console.log(error);
         }
@@ -201,6 +166,7 @@ export const useApp = () => {
         currentAccount,
         isRinkebyTestNetwork,
         inProgress,
+        myLatestTokenId,
         connectWallet,
         askContractToMintNft,
     };

@@ -7,6 +7,7 @@ import {
   TWITTER_HANDLE,
   TWITTER_LINK,
   MAX_SUPPLY,
+  CONTRACT_ADDRESS,
 } from "./constants";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     currentAccount,
     isRinkebyTestNetwork,
     inProgress,
+    myLatestTokenId,
     connectWallet,
     askContractToMintNft,
   } = useApp();
@@ -32,6 +34,10 @@ const App = () => {
   const showMintCondition = useMemo(() => {
     return currentAccount !== "" && isRinkebyTestNetwork && !inProgress;
   }, [currentAccount, isRinkebyTestNetwork, inProgress]);
+
+  const showOpenSeaLinkCondition = useMemo(() => {
+    return myLatestTokenId && !inProgress;
+  }, [myLatestTokenId, inProgress]);
 
   return (
     <div className="App">
@@ -52,10 +58,32 @@ const App = () => {
               Rinkeby Test Network に切り替えてください
             </p>
           )}
+          {showOpenSeaLinkCondition && (
+            <>
+              <div className="desc-container">
+                <a
+                  href={`https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${myLatestTokenId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="cta-button connect-wallet-button">
+                    ミントした NFT を見にいく
+                  </button>
+                </a>
+              </div>
+              <p className="desc-text"> - or -</p>
+            </>
+          )}
           {!!showMintCondition && (
-            <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-              Mint NFT
-            </button>
+            <>
+              <p className="desc-text">0.001 ETH</p>
+              <button
+                onClick={askContractToMintNft}
+                className="cta-button connect-wallet-button"
+              >
+                ミントする
+              </button>
+            </>
           )}
           {inProgress && (
             <>
@@ -74,9 +102,7 @@ const App = () => {
           <div className="progress-container">
             <p className="sub-text">{`${lastTokenId === 0 ? "x" : lastTokenId
               }/${MAX_SUPPLY}`}</p>
-            <div className="progress" style={{ width: `${lastTokenId}%` }}>
-              🍜
-            </div>
+            <div className="progress" style={{ width: `${lastTokenId}%` }} />
           </div>
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
