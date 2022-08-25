@@ -154,6 +154,7 @@ export const useApp = () => {
         //mint 後に emit された NewEpicNFTMinted から値を受け取る
         const handleEmitEvent = (_from, tokenId) => {
             setMyLatestTokenId(tokenId.toNumber());
+            handleGetLastTokenId(connectedContract);
         }
         connectedContract.on("NewEpicNFTMinted", handleEmitEvent);
         return () => connectedContract.off("NewEpicNFTMinted", handleEmitEvent);

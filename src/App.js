@@ -35,6 +35,10 @@ const App = () => {
     return currentAccount !== "" && isRinkebyTestNetwork && !inProgress;
   }, [currentAccount, isRinkebyTestNetwork, inProgress]);
 
+  const showMintCountCondition = useMemo(() => {
+    return currentAccount !== "" && isRinkebyTestNetwork;
+  }, [currentAccount, isRinkebyTestNetwork, inProgress]);
+
   const showOpenSeaLinkCondition = useMemo(() => {
     return myLatestTokenId && !inProgress;
   }, [myLatestTokenId, inProgress]);
@@ -58,20 +62,10 @@ const App = () => {
               Rinkeby Test Network に切り替えてください
             </p>
           )}
-          {showOpenSeaLinkCondition && (
+          {!!showMintCountCondition && (
             <>
-              <div className="desc-container">
-                <a
-                  href={`https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${myLatestTokenId}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <button className="cta-button connect-wallet-button">
-                    ミントした NFT を見にいく
-                  </button>
-                </a>
-              </div>
-              <p className="desc-text"> - or -</p>
+              <p className="sub-text">{`${lastTokenId === 0 ? "x" : lastTokenId
+                }/${MAX_SUPPLY}`}</p>
             </>
           )}
           {!!showMintCondition && (
@@ -83,6 +77,20 @@ const App = () => {
               >
                 ミントする
               </button>
+            </>
+          )}
+          {showOpenSeaLinkCondition && (
+            <>
+              <p className="desc-text"> - or -</p>
+              <a
+                href={`https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${myLatestTokenId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="cta-button connect-wallet-button">
+                  ミントした NFT を見にいく
+                </button>
+              </a>
             </>
           )}
           {inProgress && (
@@ -99,11 +107,6 @@ const App = () => {
           )}
         </div>
         <div className="footer-container">
-          <div className="progress-container">
-            <p className="sub-text">{`${lastTokenId === 0 ? "x" : lastTokenId
-              }/${MAX_SUPPLY}`}</p>
-            <div className="progress" style={{ width: `${lastTokenId}%` }} />
-          </div>
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"

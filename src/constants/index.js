@@ -4,7 +4,6 @@ export const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 export const OPENSEA_LINK = '';
 export const MAX_SUPPLY = 100;
 export const MINT_PRICE = "0.001";
-//const CONTRACT_ADDRESS = "0xf1ef7780590252ad68790CC1A1dC3C832461F399";
 export const CONTRACT_ADDRESS = "0x11f266F22Cd0929702CF8368921A29C0A3551289";
 export const RINKEBY_CHAIN_ID = "0x4";
 
