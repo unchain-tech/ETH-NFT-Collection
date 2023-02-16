@@ -58,11 +58,41 @@
   background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
-  margin-right: 15px;
+}
+
+.minting-button {
+  background: -webkit-linear-gradient(left, #d6006f, #f6ff42);
+  background-size: 200% 200%;
+  animation: blink 1.5s ease infinite;
+}
+
+.soldout-button {
+  background: -webkit-linear-gradient(left, #35aee2, #a200d6);
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+}
+
+.middle-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .opensea-button {
+  height: 36px;
+  border: 0;
+  width: auto;
+  border-radius: 5px;
+  cursor: pointer;
   background-color: rgb(32, 129, 226);
+}
+
+.opensea-text {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
 
 .mint-count {
@@ -121,5 +151,16 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
