@@ -11,7 +11,7 @@ import myEpicNft from "./utils/MyEpicNFT.json";
 const TWITTER_HANDLE = 'desmo_nft';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/assets';
-const TOTAL_MINT_COUNT = 18;
+const TOTAL_MINT_COUNT = 50;
 
 // コントラクトアドレスをCONTRACT_ADDRESS変数に格納
 const CONTRACT_ADDRESS = "0xe709a08C63e6EdabA32fF3dE480A339A0a5Cd2aB";
