@@ -1,0 +1,17 @@
+{
+  "name": "ETH-NFT-Collection",
+  "version": "0.1.0",
+  "description": "Prototype of ETH-NFT-Collection",
+  "repository": "git@github.com:unchain-tech/ETH-NFT-Collection.git",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "contract": "yarn workspace contract",
+    "client": "yarn workspace client"
+  }
+}
