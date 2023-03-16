@@ -10,8 +10,16 @@
       "packages/*"
     ]
   },
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "prettier": "2.8.4"
+  },
   "scripts": {
     "contract": "yarn workspace contract",
-    "client": "yarn workspace client"
+    "client": "yarn workspace client",
+    "prettier": "prettier --check --ignore-unknown --no-error-on-unmatched-pattern --ignore-path .prettierignore .",
+    "prettier:fix": "prettier --write --ignore-unknown --no-error-on-unmatched-pattern --ignore-path .prettierignore .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }
