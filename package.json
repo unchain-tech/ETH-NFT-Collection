@@ -5,14 +5,19 @@
   "repository": "git@github.com:unchain-tech/ETH-NFT-Collection.git",
   "license": "MIT",
   "private": true,
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "2.8.4",
+    "simple-git-hooks": "^2.8.1"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
     ]
   },
-  "devDependencies": {
-    "eslint": "^8.36.0",
-    "prettier": "2.8.4"
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
   "scripts": {
     "contract": "yarn workspace contract",
