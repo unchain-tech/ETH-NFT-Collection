@@ -11,7 +11,17 @@ module.exports = {
       'error',
       { ignores: ['modules'] },
     ],
-    'node/no-unpublished-require': ['warn', { allowModules: [] }],
+    'node/no-unpublished-require': [
+      'warn',
+      {
+        allowModules: [
+          '@nomicfoundation/hardhat-toolbox',
+          'hardhat',
+          'dotenv',
+          'chai',
+        ],
+      },
+    ],
     'node/no-unpublished-import': ['warn'],
     'node/no-missing-import': ['warn'],
     'no-lone-blocks': ['off'],
