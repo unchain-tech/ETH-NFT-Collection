@@ -1,12 +1,26 @@
-// .eslintrc.js example
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true
+  env: {
+    browser: true,
+    es2021: true,
+    mocha: true,
+    node: true,
   },
-  "extends": "eslint:recommended",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+  extends: ['standard', 'prettier', 'plugin:node/recommended'],
+  rules: {
+    'node/no-unsupported-features/es-syntax': [
+      'error',
+      { ignores: ['modules'] },
+    ],
+    'node/no-unpublished-require': ['warn', { allowModules: [] }],
+    'node/no-unpublished-import': ['warn'],
+    'node/no-missing-import': ['warn'],
+    'no-lone-blocks': ['off'],
+    'no-unused-vars': ['warn'],
   },
-}
+  settings: {
+    node: { tryExtensions: ['.js', '.json', '.node'] },
+  },
+  parserOptions: {
+    sourceType: 'module',
+  },
+};
