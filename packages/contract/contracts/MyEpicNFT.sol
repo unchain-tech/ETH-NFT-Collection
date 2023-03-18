@@ -22,11 +22,11 @@ contract MyEpicNFT is ERC721URIStorage {
   // SVGコードを作成します。
   // 変更されるのは、表示される単語だけです。
   // すべてのNFTにSVGコードを適用するために、baseSvg変数を作成します。
-  string private _baseSvg =
+  string public baseSvg =
     "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
   // 3つの配列 string[] に、それぞれランダムな単語を設定しましょう。
-  string[] private _firstWords = [
+  string[] public firstWords = [
     'Epic',
     'Fantastic',
     'Crude',
@@ -34,15 +34,8 @@ contract MyEpicNFT is ERC721URIStorage {
     'Hysterical',
     'Grand'
   ];
-  string[] private _secondWords = [
-    'Meta',
-    'Live',
-    'Pop',
-    'Cute',
-    'Sweet',
-    'Hot'
-  ];
-  string[] private _thirdWords = [
+  string[] public secondWords = ['Meta', 'Live', 'Pop', 'Cute', 'Sweet', 'Hot'];
+  string[] public thirdWords = [
     'Kitten',
     'Puppy',
     'Monkey',
@@ -76,10 +69,10 @@ contract MyEpicNFT is ERC721URIStorage {
     // seed rand をターミナルに出力する。
     console.log('rand - seed: ', rand);
     // firstWords配列の長さを基準に、rand 番目の単語を選びます。
-    rand = rand % _firstWords.length;
+    rand = rand % firstWords.length;
     // firstWords配列から何番目の単語が選ばれるかターミナルに出力する。
     console.log('rand - first word: ', rand);
-    return _firstWords[rand];
+    return firstWords[rand];
   }
 
   // pickRandomSecondWord関数は、2番目に表示されるの単語を選びます。
@@ -90,8 +83,8 @@ contract MyEpicNFT is ERC721URIStorage {
     uint256 rand = _random(
       string(abi.encodePacked('SECOND_WORD', Strings.toString(tokenId)))
     );
-    rand = rand % _secondWords.length;
-    return _secondWords[rand];
+    rand = rand % secondWords.length;
+    return secondWords[rand];
   }
 
   // pickRandomThirdWord関数は、3番目に表示されるの単語を選びます。
@@ -102,8 +95,8 @@ contract MyEpicNFT is ERC721URIStorage {
     uint256 rand = _random(
       string(abi.encodePacked('THIRD_WORD', Strings.toString(tokenId)))
     );
-    rand = rand % _thirdWords.length;
-    return _thirdWords[rand];
+    rand = rand % thirdWords.length;
+    return thirdWords[rand];
   }
 
   // ユーザーが NFT を取得するために実行する関数です。
@@ -121,7 +114,7 @@ contract MyEpicNFT is ERC721URIStorage {
 
     // 3つの単語を連結して、<text>タグと<svg>タグで閉じます。
     string memory finalSvg = string(
-      abi.encodePacked(_baseSvg, combinedWord, '</text></svg>')
+      abi.encodePacked(baseSvg, combinedWord, '</text></svg>')
     );
 
     // NFTに出力されるテキストをターミナルに出力します。
