@@ -27,6 +27,7 @@
   },
   "scripts": {
     "solhint": "solhint --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\"",
-    "solhint:fix": "solhint --fix --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\""
+    "solhint:fix": "solhint --fix --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\"",
+    "test": "npx hardhat test"
   }
 }
