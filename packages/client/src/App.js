@@ -10,8 +10,6 @@ import myEpicNft from './utils/MyEpicNFT.json';
 // Constantsを宣言する: constとは値書き換えを禁止した変数を宣言する方法です。
 const TWITTER_HANDLE = 'yuki4san';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
-const TOTAL_MINT_COUNT = 50;
 
 // コトントラクトアドレスをCONTRACT_ADDRESS変数に格納
 const CONTRACT_ADDRESS = '0xF7d8473eF4555B158689Ae8F3c1b39c246A1244E';
@@ -128,7 +126,7 @@ const App = () => {
         await nftTxn.wait();
         console.log(nftTxn);
         console.log(
-          `Mined, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`,
+          `Mined, see transaction: https://sepolia.etherscan.io/tx/${nftTxn.hash}`,
         );
       } else {
         console.log("Ethereum object doesn't exist!");
