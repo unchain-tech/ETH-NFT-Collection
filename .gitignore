@@ -1,4 +1,7 @@
-node_modules/
-buildi/
-.DS_Store
-package-lock.json
+**/yarn-error.log*
+
+# dependencies
+**/node_modules
+
+# misc
+**/.DS_Store

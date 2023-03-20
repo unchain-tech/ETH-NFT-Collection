@@ -1,11 +1,37 @@
-# Create your first NFT collection.
+# ETH-NFT-Collection (prototype)
 
 ![](https://i.imgur.com/zX0LrXn.png)
 
-このコースを始めるには、下記のステップを実行してください。
+## 実行方法
 
-1. あなたのGithubアカウントにこのレポジトリをフォークしましょう。
-2. クローンしたレポジトリをあなたのローカル環境にダウンロードしましょう。
-3. ターミナルを開き、ディレクトリのルートで `npm install` を実行します。
-2. `npm run start` を実行してプロジェクトを開始します。
-3. コーディングを始めましょう。
+### 1. 本リポジトリのクローン
+
+```bash
+git clone git@github.com:unchain-tech/ETH-NFT-Collection.git
+```
+
+### 2. パッケージのインストール
+
+```bash
+yarn install
+```
+
+### 3. コントラクトのデプロイ
+
+#### 3-1. `.env`ファイルを作成
+
+#### 3-2. デプロイの実行
+
+```bash
+npx hardhat deploy scripts/deploy.js --network sepolia
+```
+
+#### 3-2. ABI ファイルの取得
+
+### 4. 開発サーバーの起動
+
+```bash
+yarn client dev
+```
+
+ターミナル上に表示された URL にアクセスしましょう。
