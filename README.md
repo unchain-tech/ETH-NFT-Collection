@@ -35,3 +35,12 @@ yarn client dev
 ```
 
 ターミナル上に表示された URL にアクセスしましょう。
+
+## 設定
+
+### Git Hooks
+
+```
+yarn install
+yarn simple-git-hook
+```
