@@ -11,11 +11,11 @@ contracts/
 
 ### `libraries/Base64.sol`
 
-SVGとJSONをBase64に変換するための関数が含まれています。このファイルは、`MyEpicNFT`コントラクトがインポートしています。
+SVG と JSON を Base64 に変換するための関数が含まれています。このファイルは、`MyEpicNFT`コントラクトがインポートしています。
 
 ### `MyEpicNFT.sol`
 
-NFTを発行するコントラクトです。
+NFT を発行するコントラクトです。
 
 ## 自動テスト
 
