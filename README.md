@@ -1,6 +1,6 @@
 # ETH-NFT-Collection (prototype)
 
-![](https://i.imgur.com/zX0LrXn.png)
+![](/packages/client/public/banner-Intro-NFT.png)
 
 ## 実行方法
 
