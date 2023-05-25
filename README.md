@@ -1,6 +1,6 @@
 # Create your first NFT collection.
 
-![](public/ETH-NFT-banner-blur.png)
+![](/packages/client/public/ETH-NFT-banner-blur.png)
 
 このコースを始めるには、下記のステップを実行してください。
 
