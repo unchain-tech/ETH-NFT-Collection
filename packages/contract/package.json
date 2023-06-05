@@ -17,6 +17,8 @@
     "typechain": "^8.1.1"
   },
   "scripts": {
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
     "test": "npx hardhat test"
   }
 }
