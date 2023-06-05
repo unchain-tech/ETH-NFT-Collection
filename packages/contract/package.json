@@ -21,8 +21,10 @@
     "typechain": "^8.1.1"
   },
   "scripts": {
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
+    "test": "npx hardhat test",
     "solhint": "solhint --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\"",
-    "solhint:fix": "solhint --fix --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\"",
-    "test": "npx hardhat test"
+    "solhint:fix": "solhint --fix --max-error 0 -c ./.solhint.json --ignore-path .solhintignore \"contracts/**/*.sol\""
   }
 }
